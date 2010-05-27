@@ -6,7 +6,7 @@ require 'city'
 get '/' do
   body = "<h1>GrouDASHpon</h1>"
   City.all.each do |city|
-    body << %Q(<b>#{city['name']}</b>\n)
+    body << %Q(<a target="_blank" href="http://groupon.com/#{city['id']}">#{city['name']}</a>\n)
     body << %Q(<span class="city-data" id="#{city['id']}"></span>&nbsp;&nbsp;\n)
     body << city_setup(city['id'])
     # body << "<pre>#{city.inspect}</pre>"
