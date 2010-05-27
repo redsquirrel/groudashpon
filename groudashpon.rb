@@ -28,8 +28,10 @@ def city_setup(id)
 <script type="text/javascript">
   var server = new Pusher('0aa652d61807ea18fe70', "#{id}");
   server.bind('update', function(amount) {
-    $("#{id}").update(amount);
-    new Effect.Highlight("#{id}");
+    if ($("#{id}").innerHTML != amount) {
+      $("#{id}").update(amount);
+      new Effect.Highlight("#{id}");      
+    }
   });
 </script>
 JAVASCRIPT
