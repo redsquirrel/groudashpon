@@ -7,10 +7,11 @@ get '/' do
   body = "<h1>GrouDASHpon</h1>"
   City.all.each do |city|
     body << %Q(<a target="_blank" href="http://groupon.com/#{city['id']}">#{city['name']}</a>\n)
-    body << %Q(<span class="city-data" id="#{city['id']}"></span>&nbsp;&nbsp;\n)
+    body << %Q($<span class="city-data" id="#{city['id']}"></span>&nbsp;&nbsp;\n)
     body << city_setup(city['id'])
     # body << "<pre>#{city.inspect}</pre>"
   end
+  body << %Q(<p><a target="_blank" href="http://github.com/redsquirrel/groudashpon">source</a></p>\n)
   "<html><head>" + head + "</head><body>" + body + "</body></html>"
 end
 
