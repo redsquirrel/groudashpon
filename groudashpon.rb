@@ -6,8 +6,8 @@ require 'city'
 get '/' do
   body = "<h1>GrouDASHpon</h1>"
   City.all.each do |city|
-    body << %Q(<h2>#{city['name']}</h2>\n)
-    body << %Q(<div class="city-data" id="#{city['id']}"></div>\n)
+    body << %Q(<b>#{city['name']}</b>\n)
+    body << %Q(<span class="city-data" id="#{city['id']}"></span>&nbsp;&nbsp;\n)
     body << city_setup(city['id'])
     # body << "<pre>#{city.inspect}</pre>"
   end
@@ -19,6 +19,7 @@ def head
 <title>GrouDASHpon</title>
 <script src="http://js.pusherapp.com/1.4/pusher.min.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
 HEAD
 end
 
@@ -28,6 +29,7 @@ def city_setup(id)
   var server = new Pusher('0aa652d61807ea18fe70', "#{id}");
   server.bind('update', function(amount) {
     $("#{id}").update(amount);
+    new Effect.Highlight("#{id}");
   });
 </script>
 JAVASCRIPT
