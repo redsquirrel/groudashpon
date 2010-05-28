@@ -43,6 +43,8 @@ function sortList() {
     $("cities").appendChild(city);
   });
 }
+
+var socket = new Pusher('0aa652d61807ea18fe70');
 </script>
 HEAD
 end
@@ -50,14 +52,13 @@ end
 def city_setup(id)
 <<JAVASCRIPT
 <script type="text/javascript">
-  var server = new Pusher('0aa652d61807ea18fe70', "#{id}");
-  server.bind('update', function(amount) {
+  socket.subscribe("#{id}").bind('update', function(amount) {
     if ($("#{id}").innerHTML != amount) {
       $("#{id}").update(amount);
       sortList();
       new Effect.Highlight("#{id}");
     }
-  });
+  });  
 </script>
 JAVASCRIPT
 end
