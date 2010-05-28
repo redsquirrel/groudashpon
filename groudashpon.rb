@@ -14,6 +14,7 @@ get '/' do
     # body << "<pre>#{city.inspect}</pre>"
     body << "</li>"
   end
+  body << "</ul>"
   body << %Q(<p><a target="_blank" href="http://github.com/redsquirrel/groudashpon">source</a></p>\n)
   "<html><head>" + head + "</head><body>" + body + "</body></html>"
 end
