@@ -1,6 +1,7 @@
 var http = require('http');
-var pusher = require('./pusher');
+var pusher_config = require('./pusher_config').get();
 var sys = require('sys');
+var pusher = require('./vendor/pusher');
 
 var domain = 'www.groupon.com';
 var dealsPath = '/api/v1/deals.json';
@@ -48,8 +49,8 @@ function processDeals(division) {
         if (deal['tipped']) {
           total += parseInt(deal['quantity_sold']) * parseFloat(deal['price']);
         }
-      });    
-      pusher.trigger(division, total);      
+      });
+      pusher.trigger(pusher_config, division, total);      
     } catch (e) {
       sys.puts("Error in processDeals(): " + sys.inspect(e));
     }
