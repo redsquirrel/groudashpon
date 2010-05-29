@@ -1,15 +1,10 @@
-var sys = require('sys'),
-  http = require('http');
-  
+var http = require('http');
 var pusher = require('./pusher');
-
-var eventPusher = pusher.create({
-  appId: '1191',
-  key: '0aa652d61807ea18fe70',
-  secret: '78942202ac7e972160d9'
-});
+var sys = require('sys');
 
 var domain = 'www.groupon.com';
+var dealsPath = '/api/v1/deals.json';
+var divisionsPath = '/api/v1/divisions.json';
 
 (function loop() {
   sys.puts("Looping");
@@ -17,7 +12,7 @@ var domain = 'www.groupon.com';
   setTimeout(loop, 10000);
   try {
     var groupon = http.createClient(80, domain);
-    var divisionsRequest = groupon.request('GET', '/api/v1/divisions.json', {host: domain});
+    var divisionsRequest = groupon.request('GET', divisionsPath, {host: domain});
     divisionsRequest.addListener('response', responseHandler(processDivisions));
     divisionsRequest.end();
   } catch (e) {
@@ -30,7 +25,7 @@ function processDivisions(divisionsData) {
     var divisions = JSON.parse(divisionsData)['divisions'];
 
     divisions.forEach(function(division) {
-      var path = '/api/v1/deals.json?' +
+      var path = dealsPath + '?' +
         'lat=' + division['location']['latitude'] +
         '&lng=' + division['location']['longitude'];
 
@@ -54,7 +49,7 @@ function processDeals(division) {
           total += parseInt(deal['quantity_sold']) * parseFloat(deal['price']);
         }
       });    
-      eventPusher.trigger(division, total);      
+      pusher.trigger(division, total);      
     } catch (e) {
       sys.puts("Error in processDeals(): " + sys.inspect(e));
     }
@@ -63,13 +58,17 @@ function processDeals(division) {
 
 function responseHandler(callback) {
   return function(response) {
-    var responseBody = "";  
-    response.setEncoding('utf8');
-    response.addListener('data', function(chunk) {
-      responseBody += chunk;
-    });
-    response.addListener('end', function() {
-      callback(responseBody);
-    });
+    try {
+      var responseBody = "";  
+      response.setEncoding('utf8');
+      response.addListener('data', function(chunk) {
+        responseBody += chunk;
+      });
+      response.addListener('end', function() {
+        callback(responseBody);
+      });
+    } catch (e) {
+      sys.puts("Error in responseHandler() " + sys.inspect(e));
+    }
   }
 }
