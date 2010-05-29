@@ -50,7 +50,7 @@ function processDeals(division) {
           total += parseInt(deal['quantity_sold']) * parseFloat(deal['price']);
         }
       });
-      simple_pusher.trigger(pusher_config, division, total);      
+      simple_pusher.trigger(pusher_config, division, total, 'update');      
     } catch (e) {
       sys.puts("Error in processDeals(): " + sys.inspect(e));
     }
