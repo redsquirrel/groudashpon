@@ -12,8 +12,7 @@ var divisionsPath = '/api/v1/divisions.json';
 
   setTimeout(loop, 10000);
   try {
-    var groupon = http.createClient(80, domain);
-    var divisionsRequest = groupon.request('GET', divisionsPath, {host: domain});
+    var divisionsRequest = createClient().request('GET', divisionsPath, {host: domain});
     divisionsRequest.addListener('response', responseHandler(processDivisions));
     divisionsRequest.end();
   } catch (e) {
@@ -30,8 +29,7 @@ function processDivisions(divisionsData) {
         'lat=' + division['location']['latitude'] +
         '&lng=' + division['location']['longitude'];
 
-      var groupon = http.createClient(80, domain);
-      var dealsRequest = groupon.request('GET', path, {host: domain});
+      var dealsRequest = createClient().request('GET', path, {host: domain});
       dealsRequest.addListener('response', responseHandler(processDeals(division['id'])));
       dealsRequest.end();    
     });
@@ -50,7 +48,7 @@ function processDeals(division) {
           total += parseInt(deal['quantity_sold']) * parseFloat(deal['price']);
         }
       });
-      simple_pusher.trigger(pusher_config, division, total, 'update');      
+      simple_pusher.trigger(pusher_config, division, 'update', total);
     } catch (e) {
       sys.puts("Error in processDeals(): " + sys.inspect(e));
     }
@@ -72,4 +70,12 @@ function responseHandler(callback) {
       sys.puts("Error in responseHandler() " + sys.inspect(e));
     }
   }
+}
+
+function createClient() {
+  var client = http.createClient(80, domain);
+  client.addListener('error', function(error) {
+    sys.puts("Client error: " + error);
+  });
+  return client;
 }

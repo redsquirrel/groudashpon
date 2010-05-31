@@ -16,6 +16,7 @@ get '/' do
   end
   body << "</ul>"
   body << %Q(<p><a target="_blank" href="http://github.com/redsquirrel/groudashpon">source</a></p>\n)
+  body << %Q(<p>Best viewed in <a href="http://www.google.com/chrome">Google Chrome</a></p>\n)
   "<html><head>" + head + "</head><body>" + body + "</body></html>"
 end
 
