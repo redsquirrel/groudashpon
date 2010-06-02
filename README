@@ -2,3 +2,10 @@ Playing with Web Sockets via Pusher and the Groupon API.
 * http://pusherapp.com/
 * http://sites.google.com/site/grouponapi/home
 
+To run "node push.js" you will need a pusher_config.js file in the root that looks like this:
+
+exports.appId  = '1234'
+exports.key    = '0aafake61807key8fe70',
+exports.secret = '789fake2ac7esecretd9'
+};
+ 
