@@ -3,6 +3,7 @@
 </div>
 <div id="content-wrap">
   <div id="content">
+    <h2>Dollars saved in current deals... in Real-Time!</h2>
     <ul id="cities">
     <% City.all.each do |city| %>
     <li id="<%= "#{city['id']}-item" %>">
@@ -13,6 +14,6 @@
     <% end %>
     </ul>
     <p id="github"><a target="_blank" href="http://github.com/redsquirrel/groudashpon">Fork me on Github</a></p>
-    <p>Best viewed in <a href="http://www.google.com/chrome">Google Chrome</a></p>
+    <p id="chrome">Best viewed in <a href="http://www.google.com/chrome">Google Chrome</a></p>
   </div>
 </div>

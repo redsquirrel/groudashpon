@@ -10,6 +10,10 @@ h1 {
 	text-indent: -10000px;
 }
 
+h2 {
+  margin-bottom: 10px;
+}
+
 #header {
 	background-color: #333333;
 	height: 159px;
@@ -57,6 +61,10 @@ li {
 	height: 149px;
 	display: block;
 	text-indent: -10000px;
+}
+
+#chrome {
+  margin-top: 10px;
 }
 
 #cities {
