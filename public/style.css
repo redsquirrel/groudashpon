@@ -1,0 +1,70 @@
+h1 {
+  background: url('images/logo-groudashpon.png') no-repeat;	
+  height: 159px;
+  width: 960px;
+  margin: auto;
+  display: block;
+}
+
+h1 {
+	text-indent: -10000px;
+}
+
+#header {
+	background-color: #333333;
+	height: 159px;
+}
+
+#content {
+	width: 960px;
+	margin: auto;
+	border: 2px solid #76A045;
+	background-color: #fff;
+	padding: 1em;
+}
+
+li {
+  list-style-type: none;
+}
+
+#content-wrap {
+	padding: 2em;
+	background: #89B556 url('images/burst_green_rays2.jpg') no-repeat;
+}
+
+#cities a {
+	font-size: 24px;
+	font-family: sans-serif;
+	color: #5482AB;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#cities a:hover {
+	color: #95BE4F;
+}
+
+#cities {
+	font-size: 20px;
+}
+
+#github a {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	background: url('images/forkme.png') no-repeat;
+	width: 149px;
+	height: 149px;
+	display: block;
+	text-indent: -10000px;
+}
+
+#cities {
+	color: #99C566;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
