@@ -26,11 +26,11 @@ function processDivisions(divisionsData) {
 
     divisions.forEach(function(division) {
       var path = dealsPath + '?' +
-        'lat=' + division['location']['latitude'] +
-        '&lng=' + division['location']['longitude'];
+        'lat=' + division.location.latitude +
+        '&lng=' + division.location.longitude;
 
       var dealsRequest = createClient().request('GET', path, {host: domain});
-      dealsRequest.addListener('response', responseHandler(processDeals(division['id'])));
+      dealsRequest.addListener('response', responseHandler(processDeals(division.id)));
       dealsRequest.end();    
     });
   } catch (e) {
@@ -41,11 +41,11 @@ function processDivisions(divisionsData) {
 function processDeals(division) {
   return function(dealsData) {
     try {
-      var deals = JSON.parse(dealsData)['deals'];
+      var deals = JSON.parse(dealsData).deals;
       var total = 0;
       deals.forEach(function(deal) {
-        if (deal['tipped']) {
-          total += parseInt(deal['quantity_sold']) * parseFloat(deal['price']);
+        if (deal.tipped) {
+          total += parseInt(deal.quantity_sold) * parseFloat(deal.discount_amount);
         }
       });
       simple_pusher.trigger(pusher_config, division, 'update', total);
