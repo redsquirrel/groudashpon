@@ -9,7 +9,8 @@
     var list = {};
     function cityData(element) {
       var city = element.id.replace("-item", "");
-      return (city && $(city).innerHTML) || 0;
+      var amount = city && unformat($(city).innerHTML);
+      return amount || 0;
     }
 
     function sortNumber(a, b) {
@@ -22,6 +23,18 @@
       sortedCities.each(function(city) {
         $("cities").appendChild(city);
       });
+    }
+    
+    function currencyFormat(amount) {
+      var amountWithCommas = new String(amount);
+      var regex = /(\d+)(\d{3})/;
+      while (regex.test(amountWithCommas))
+        amountWithCommas = amountWithCommas.replace(regex, '$1' + ',' + '$2');
+      return "$" + amountWithCommas;
+    }
+    
+    function unformat(formattedAmount) {
+      return formattedAmount.replace(/,|\$/g, "");
     }
 
     WebSocket.__swfLocation = "/swf/WebSocketMain.swf";

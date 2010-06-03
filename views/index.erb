@@ -8,7 +8,7 @@
     <% City.all.each do |city| %>
     <li id="<%= "#{city['id']}-item" %>">
     <a target="_blank" href="<%= "http://groupon.com/#{city['id']}" %>"><%= city['name'] %></a>
-      $<span class="city-data" id="<%= city['id'] %>"></span>
+      <span class="city-data" id="<%= city['id'] %>"></span>
       <%= city_setup(city['id']) %>
       </li>
     <% end %>
