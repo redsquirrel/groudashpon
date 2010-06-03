@@ -3,17 +3,23 @@
 </div>
 <div id="content-wrap">
   <div id="content">
-    <h2>Dollars saved in current deals... in Real-Time!</h2>
-    <ul id="cities">
-    <% City.all.each do |city| %>
-    <li id="<%= "#{city['id']}-item" %>">
-    <a target="_blank" href="<%= "http://groupon.com/#{city['id']}" %>"><%= city['name'] %></a>
-      <span class="city-data" id="<%= city['id'] %>"></span>
-      <%= city_setup(city['id']) %>
-      </li>
-    <% end %>
-    </ul>
-    <p id="github"><a target="_blank" href="http://github.com/redsquirrel/groudashpon">Fork me on Github</a></p>
-    <p id="chrome">Best viewed in <a href="http://www.google.com/chrome">Google Chrome</a></p>
+    <div id="left">
+      Main content
+    </div>
+    <div id="right">
+      <h2>Dollars saved in current deals... in Real-Time!</h2>
+      <ul id="cities">
+      <% City.all.each do |city| %>
+      <li id="<%= "#{city['id']}-item" %>">
+      <a target="_blank" href="<%= "http://groupon.com/#{city['id']}" %>"><%= city['name'] %></a>
+        <span class="city-data" id="<%= city['id'] %>"></span>
+        <%= city_setup(city['id']) %>
+        </li>
+      <% end %>
+      </ul>
+      <p id="github"><a target="_blank" href="http://github.com/redsquirrel/groudashpon">Fork me on Github</a></p>
+      <p id="chrome">Best viewed in <a href="http://www.google.com/chrome">Google Chrome</a></p>
+    </div>
+    <div class="clear"></div>
   </div>
 </div>
