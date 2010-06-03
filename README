@@ -11,9 +11,13 @@ Pushing events
 
 To run "node push.js" you will need a pusher_config.js file in the root that looks like this:
 
-exports.appId  = '1234'
-exports.key    = '0aafake61807key8fe70',
-exports.secret = '789fake2ac7esecretd9'
+exports.get = function() {
+  return {
+    appId:  '1234',
+    key:    '0aafake61807key8fe70',
+    secret: '789fake2ac7esecretd9'
+  };
+}
 
 
 Contributors
