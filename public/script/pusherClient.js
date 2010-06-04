@@ -29,25 +29,36 @@ function unformat(formattedAmount) {
   return formattedAmount.replace(/,|\$/g, "");
 }
 
-WebSocket.__swfLocation = "/swf/WebSocketMain.swf";
-document.observe("dom:loaded", function() {
+function setupSocketUpdates() {
   var socket = new Pusher('0aa652d61807ea18fe70');
 	$$(".city-data").each(function(cityData) {
 		var cityName = cityData.id;
-	  socket.subscribe(cityName).bind('update', function(data) {
-	    setTimeout(function(){
-	      var amount = currencyFormat(data.total); 
-	      if ($(cityName).innerHTML != amount) {
-					if ($(cityName).innerHTML != "") {
-	        	addBlip(data.location.latitude, data.location.longitude);
-					}
-	        $(cityName).update(amount);
-	        sortList();
-	        new Effect.Highlight(cityName);
-	      }
-	    }, Math.random()*15000);
-	  });  
-		
-	})
+	  socket.subscribe(cityName).bind('update', receiveSocketUpdates(cityName));
+	});
+}
 
-});
+function receiveSocketUpdates(cityName) {
+  return function(data) {
+    var amount = currencyFormat(data.total); 
+    if ($(cityName).innerHTML != amount) {
+  		if ($(cityName).innerHTML == "") {
+  		  handleUpdate(cityName, amount);
+  		} else {
+        setTimeout(function() {
+        	addBlip(data.location.latitude, data.location.longitude);
+          new Effect.Highlight(cityName, {restorecolor: "#FFFFFF"});
+    		  handleUpdate(cityName, amount);
+        }, Math.random()*15000);
+  		}
+    }
+  };
+}
+
+function handleUpdate(cityName, amount) {
+  $(cityName).update(amount);
+  sortList();  
+}
+
+document.observe("dom:loaded", setupSocketUpdates);
+
+WebSocket.__swfLocation = "/swf/WebSocketMain.swf";
