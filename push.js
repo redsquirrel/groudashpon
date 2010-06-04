@@ -30,7 +30,7 @@ function processDivisions(divisionsData) {
         '&lng=' + division.location.longitude;
 
       var dealsRequest = createClient().request('GET', path, {host: domain});
-      dealsRequest.addListener('response', responseHandler(processDeals(division.id)));
+      dealsRequest.addListener('response', responseHandler(processDeals(division)));
       dealsRequest.end();    
     });
   } catch (e) {
@@ -48,7 +48,7 @@ function processDeals(division) {
           total += parseInt(deal.quantity_sold) * parseFloat(deal.discount_amount);
         }
       });
-      simple_pusher.trigger(pusher_config, division, 'update', total);
+      simple_pusher.trigger(pusher_config, division.id, 'update', {total: total, location: division.location});
     } catch (e) {
       sys.puts("Error in processDeals(): " + sys.inspect(e));
     }
