@@ -45,7 +45,7 @@ document.observe("dom:loaded", function() {
 	        sortList();
 	        new Effect.Highlight(cityName);
 	      }
-	    }, Math.random()*5000);
+	    }, Math.random()*15000);
 	  });  
 		
 	})
