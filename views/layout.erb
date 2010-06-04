@@ -5,42 +5,9 @@
     <script src="http://js.pusherapp.com/1.4/pusher.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript">
-    var list = {};
-    function cityData(element) {
-      var city = element.id.replace("-item", "");
-      var amount = city && unformat($(city).innerHTML);
-      return amount || 0;
-    }
-
-    function sortNumber(a, b) {
-      return cityData(b) - cityData(a);
-    }
-
-    function sortList() {
-      var sortedCities = $("cities").childElements().sort(sortNumber);
-      $("cities").innerHTML = "";
-      sortedCities.each(function(city) {
-        $("cities").appendChild(city);
-      });
-    }
-    
-    function currencyFormat(amount) {
-      var amountWithCommas = new String(amount);
-      var regex = /(\d+)(\d{3})/;
-      while (regex.test(amountWithCommas))
-        amountWithCommas = amountWithCommas.replace(regex, '$1' + ',' + '$2');
-      return "$" + amountWithCommas;
-    }
-    
-    function unformat(formattedAmount) {
-      return formattedAmount.replace(/,|\$/g, "");
-    }
-
-    WebSocket.__swfLocation = "/swf/WebSocketMain.swf";
-    var socket = new Pusher('0aa652d61807ea18fe70');
-    </script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false&amp;key=ABQIAAAATaAMXTegd0y6ylfgS2BWDxRFIWRd2wbB_ipWSH_9bn33V-CgmxThF_Xqzn5heZeOrNROcJwKDSXNaQ" type="text/javascript"></script>
+    <script type="text/javascript" src="script/pusherClient.js"></script>
+    <script type="text/javascript" src="script/mapper.js"></script>
   </head>
   <body>
     <%= yield %>
