@@ -1,3 +1,5 @@
+var myMap;
+
 document.observe("dom:loaded", function() {
   var myOptions = {
     zoom: 4,
@@ -6,14 +8,12 @@ document.observe("dom:loaded", function() {
     navigationControl: false,
     mapTypeControl: false
   }
-  myMap = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
-  myGeocoder = new google.maps.Geocoder();
-	
+  myMap = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);	
 });
 
-function addBlip(lat, lng) {
-  var blip = new google.maps.MarkerImage('images/blip.gif',
-      new google.maps.Size(70, 80),   //size
+function addBlip(lat, lng, image, url) {
+  var blip = new google.maps.MarkerImage(image,
+      new google.maps.Size(61, 100),  //size
       new google.maps.Point(0,0),     //origin
       new google.maps.Point(25, 40)); //anchor
   
@@ -21,6 +21,11 @@ function addBlip(lat, lng) {
       position: new google.maps.LatLng(lat, lng),
       map: myMap,
       icon: blip,
+      clickable: true
+  });
+  
+  google.maps.event.addListener(marker, 'click', function() {
+    window.open(url, "_blank").focus();
   });
   
   setTimeout(function(){ marker.setVisible(false); }, 2500);

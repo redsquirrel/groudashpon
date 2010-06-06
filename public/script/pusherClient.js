@@ -33,30 +33,27 @@ function setupSocketUpdates() {
   var socket = new Pusher('0aa652d61807ea18fe70');
 	$$(".city-data").each(function(cityData) {
 		var cityName = cityData.id;
-	  socket.subscribe(cityName).bind('update', receiveSocketUpdates(cityName));
+	  socket.subscribe(cityName).bind('citySavings', receiveCitySavings(cityName));
 	});
+
+  socket.subscribe("deals").bind('purchase', receiveDealUpdates);
 }
 
-function receiveSocketUpdates(cityName) {
-  return function(data) {
-    var amount = currencyFormat(data.total); 
+function receiveCitySavings(cityName) {
+  return function(total) {
+    var amount = currencyFormat(total); 
     if ($(cityName).innerHTML != amount) {
-  		if ($(cityName).innerHTML == "") {
-  		  handleUpdate(cityName, amount);
-  		} else {
-        setTimeout(function() {
-        	addBlip(data.location.latitude, data.location.longitude);
-          new Effect.Highlight(cityName, {restorecolor: "#FFFFFF"});
-    		  handleUpdate(cityName, amount);
-        }, Math.random()*15000);
+  		if ($(cityName).innerHTML != "") {
+        new Effect.Highlight(cityName, {restorecolor: "#FFFFFF"});
   		}
+      $(cityName).update(amount);
+      sortList();  
     }
   };
 }
 
-function handleUpdate(cityName, amount) {
-  $(cityName).update(amount);
-  sortList();  
+function receiveDealUpdates(data) {
+  addBlip(data.latitude, data.longitude, data.image, data.url);
 }
 
 document.observe("dom:loaded", setupSocketUpdates);
