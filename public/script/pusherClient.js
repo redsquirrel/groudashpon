@@ -31,10 +31,10 @@ function unformat(formattedAmount) {
 
 function setupSocketUpdates() {
   var socket = new Pusher('0aa652d61807ea18fe70');
-	$$(".city-data").each(function(cityData) {
-		var cityName = cityData.id;
-	  socket.subscribe(cityName).bind('citySavings', receiveCitySavings(cityName));
-	});
+  $$(".city-data").each(function(cityData) {
+    var cityName = cityData.id;
+    socket.subscribe(cityName).bind('citySavings', receiveCitySavings(cityName));
+  });
 
   socket.subscribe("deals").bind('purchase', receiveDealUpdates);
 }
