@@ -54,6 +54,7 @@ function receiveCitySavings(cityName) {
 
 function receiveDealUpdates(data) {
   addBlip(data.latitude, data.longitude, data.image, data.url);
+  $("firehose").innerHTML = "<a target='_blank' href='" + data.url + "'><img src='" + data.image + "' /></a>" + $("firehose").innerHTML;
 }
 
 document.observe("dom:loaded", setupSocketUpdates);

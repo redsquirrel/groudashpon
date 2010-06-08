@@ -23,26 +23,36 @@ h2 {
 }
 
 #content {
-  width: 960px;
+  width: 1024px;
 	margin: auto;
 }
 
-#content #left, #content #right {
+#content #left, #content #center, #content #right {
   border: 2px solid #76A045;
 	background-color: #fff;
   float: left;
 }
 
-#content #left {
+#content #center {
 	width: 700px;
   height: 450px;
+	margin-left: 7px;
 	margin-right: 7px;
 }
+
+#content #left {
+  width: 61px;
+  overflow: hidden;
+}
+
 #content #right {
+  width: 180px;
 	padding: 1em;
-	width: 200px;
-  height: 450px;
   overflow: scroll;
+}
+
+#content #right, #content #left {
+  height: 450px;
 }
 
 li {
