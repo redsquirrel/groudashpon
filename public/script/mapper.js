@@ -28,5 +28,5 @@ function addBlip(lat, lng, image, url) {
     window.open(url, "_blank").focus();
   });
   
-  setTimeout(function(){ marker.setVisible(false); }, 2500);
+  setTimeout(function(){ marker.setMap(null); }, 3000);
 }
