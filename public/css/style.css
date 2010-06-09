@@ -27,7 +27,7 @@ h2 {
 	margin: auto;
 }
 
-#content #left, #content #center, #content #right {
+#content #left, #content #center, #content #right, #content #bottom {
   border: 2px solid #76A045;
 	background-color: #fff;
   float: left;
@@ -35,22 +35,30 @@ h2 {
 
 #content #center {
 	width: 700px;
-  height: 450px;
+  height: 480px;
 	margin-left: 7px;
 	margin-right: 7px;
 }
 
 #content #left {
   width: 100px;
-  height: 450px;
+  height: 488px;
   overflow: hidden;
+  border-bottom: none;
 }
 
 #content #right {
   width: 180px;
-  height: 440px;
+  height: 470px;
 	padding: 5px;
   overflow: scroll;
+}
+
+#content #bottom {
+  width: 1000px;
+  height: 61px;
+  overflow: hidden;
+  border-top: none;
 }
 
 li {
@@ -100,7 +108,7 @@ li {
 }
 
 #mapCanvas {
-	height: 450px;
+	height: 480px;
 }
 
 * {

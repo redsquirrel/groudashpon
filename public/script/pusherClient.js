@@ -67,13 +67,31 @@ function addToFirehose(data) {
   
   var firehose = $("firehose");
   var elements = firehose.childElements();
+
   if (elements.length > 0) {
     firehose.insertBefore(link, elements[0]);
-    if (elements.length > 50) {
-      firehose.removeChild(elements[elements.length-1]);
+    if (elements.length >= 8) {
+      var movingOn = elements[elements.length-1];
+      firehose.removeChild(movingOn);
+      addToGutter(movingOn);
     }
   } else {
     firehose.appendChild(link);
+  }
+}
+
+function addToGutter(link) {
+  var gutter = $("gutter");
+  var elements = gutter.childElements();
+
+  if (elements.length > 0) {
+    gutter.insertBefore(link, elements[0]);
+    if (elements.length > 20) {
+      var finished = elements[elements.length-1];
+      gutter.removeChild(finished);
+    }
+  } else {
+    gutter.appendChild(link);
   }
 }
 
