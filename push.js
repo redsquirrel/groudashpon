@@ -7,12 +7,13 @@ var domain = 'www.groupon.com';
 var dealsPath = '/api/v1/deals.json';
 var divisionsPath = '/api/v1/divisions.json';
 
+var FREQUENCY = 20000;
 var dealDatabase = {};
 
 (function loop() {
   sys.puts("Looping");
 
-  setTimeout(loop, 10000);
+  setTimeout(loop, FREQUENCY);
   try {
     var divisionsRequest = createClient().request('GET', divisionsPath, {host: domain});
     divisionsRequest.addListener('response', responseHandler(processDivisions));
@@ -61,7 +62,9 @@ function pushDivisionTotal(division, deals) {
         total += parseInt(deal.quantity_sold) * parseFloat(deal.discount_amount);
       }
     });
-    simple_pusher.trigger(pusher_config, division.id, 'citySavings', total);
+    setTimeout(function() {
+      simple_pusher.trigger(pusher_config, division.id, 'citySavings', total);
+    }, FREQUENCY);
   } catch (e) {
     sys.puts("Error in pushDivisionTotal(): " + sys.inspect(e));
   }
@@ -82,7 +85,7 @@ function pushDealUpdates(deals) {
           }
           setTimeout(function() {
             simple_pusher.trigger(pusher_config, 'deals', 'purchase', pushData);
-          }, Math.random() * 10000);
+          }, Math.random() * FREQUENCY);
         }
       }
       dealDatabase[deal.id] = parseInt(deal.quantity_sold);
