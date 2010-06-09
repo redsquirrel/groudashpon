@@ -23,7 +23,7 @@ h2 {
 }
 
 #content {
-  width: 1024px;
+  width: 1152px;
 	margin: auto;
 }
 
@@ -41,7 +41,7 @@ h2 {
 }
 
 #content #left {
-  width: 61px;
+  width: 100px;
   overflow: hidden;
 }
 

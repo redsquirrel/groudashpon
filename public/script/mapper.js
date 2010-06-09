@@ -13,7 +13,7 @@ document.observe("dom:loaded", function() {
 
 function addBlip(lat, lng, image, url) {
   var blip = new google.maps.MarkerImage(image,
-      new google.maps.Size(61, 100),  //size
+      new google.maps.Size(100, 61),  //size
       new google.maps.Point(0,0),     //origin
       new google.maps.Point(25, 40)); //anchor
   

@@ -1,4 +1,3 @@
-var list = {};
 function cityData(element) {
   var city = element.id.replace("-item", "");
   var amount = city && unformat($(city).innerHTML);
@@ -54,7 +53,28 @@ function receiveCitySavings(cityName) {
 
 function receiveDealUpdates(data) {
   addBlip(data.latitude, data.longitude, data.image, data.url);
-  $("firehose").innerHTML = "<a target='_blank' href='" + data.url + "'><img src='" + data.image + "' /></a>" + $("firehose").innerHTML;
+  addToFirehose(data);
+}
+
+function addToFirehose(data) {
+  var image = new Image();
+  image.setAttribute("src", data.image);
+  
+  var link = document.createElement('a');
+  link.setAttribute("target", "_blank");
+  link.setAttribute("href", data.url);
+  link.appendChild(image);
+  
+  var firehose = $("firehose");
+  var elements = firehose.childElements();
+  if (elements.length > 0) {
+    firehose.insertBefore(link, elements[0]);
+    if (elements.length > 50) {
+      firehose.removeChild(elements[elements.length-1]);
+    }
+  } else {
+    firehose.appendChild(link);
+  }
 }
 
 document.observe("dom:loaded", setupSocketUpdates);
