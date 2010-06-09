@@ -114,4 +114,8 @@ body {
 	height: 100%;
 }
 
+:link img {
+  border: none;
+}
+
 .clear { clear: both;}
