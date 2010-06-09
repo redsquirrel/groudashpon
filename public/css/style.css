@@ -42,17 +42,18 @@ h2 {
 
 #content #left {
   width: 100px;
+  height: 450px;
   overflow: hidden;
 }
 
 #content #right {
   width: 180px;
-	padding: 1em;
+  height: 440px;
+	padding: 5px;
   overflow: scroll;
 }
 
 #content #right, #content #left {
-  height: 450px;
 }
 
 li {
